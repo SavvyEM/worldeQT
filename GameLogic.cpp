@@ -1,9 +1,13 @@
 #include "GameLogic.h"
 #include <QRandomGenerator>
 #include <QCoreApplication>
+#include <QStandardPaths>
+#include <QFile>
+#include <QDebug>
+#include <QDir>
 
 GameLogic::GameLogic() {
-    loadWorldList();
+    loadWordList();
     startNewGame();
 }
 
@@ -18,7 +22,7 @@ void GameLogic::startNewGame(){
     correctLetter.clear();
 }
 
-void GameLogic::loadWorldList(){
+void GameLogic::loadWordList(){
     QFile file(":/words.txt");
 
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -85,25 +89,42 @@ GameLogic::GuessResult GameLogic::submitGuess(const QString &guess){
 }
 
 int GameLogic::calculateScore() const {
-    switch(5 - (5 - attemptsLeft)){
+    switch(6 - attemptsLeft){
     case 1: return 5;
     case 2: return 4;
     case 3: return 3;
     case 4: return 2;
     case 5: return 1;
+    case 6: return 0;
     default: return 0;
     }
 }
 
+QString GameLogic::getScoresPath() const{
+    QString path = "C:/Users/cherk/folderForVSCode/qt/wordle1/scores";
+    QDir().mkpath(QFileInfo(path).path());
+
+    qDebug() << "Scores file path:" << path;
+
+    return path;
+}
+
 void GameLogic::saveScoreToFile(int score) const{
-    QString scoresPath = QCoreApplication::applicationDirPath() + "/scores.txt";
+    if(score <= 0){
+        qDebug() << "Zero score - not saving";
+        return;
+    }
 
-    QFile file(scoresPath);
+    QString path = getScoresPath();
+    QFile file(path);
 
-    if(file.open(QIODevice::Append | QIODevice::Text)){
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
         out << score << "\n";
         file.close();
+        qDebug() << "Successfully saved score:" << score << "to" << path;
+    } else {
+        qDebug() << "Failed to save score, error:" << file.errorString();
     }
 }
 

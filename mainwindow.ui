@@ -85,6 +85,12 @@
     <property name="text">
      <string>Menu</string>
     </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="menuRecordsButton">
     <property name="geometry">
@@ -97,6 +103,12 @@
     </property>
     <property name="text">
      <string>Records</string>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QStackedWidget" name="stackedWidget">
@@ -129,10 +141,10 @@ padding: 10px;</string>
     <widget class="QListWidget" name="recordList">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>581</width>
-       <height>291</height>
+       <x>10</x>
+       <y>10</y>
+       <width>561</width>
+       <height>271</height>
       </rect>
      </property>
      <property name="alternatingRowColors">

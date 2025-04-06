@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QRandomGenerator>
+#include <QDebug>
 
 class GameLogic
 {
@@ -15,6 +16,7 @@ public:
     ~GameLogic() = default;
 
     void startNewGame();
+
     struct GuessResult{
         bool isCorrect;
         QString mask;
@@ -28,6 +30,7 @@ public:
     int calculateScore() const;
     void saveScoreToFile(int score) const;
     QString getTargetWord() const;
+    QString getScoresPath() const;
 
 private:
     QStringList wordList;
@@ -35,7 +38,7 @@ private:
     int attemptsLeft;
     QVector<QChar> correctPositions;
     QSet<QChar> correctLetter;
-    void loadWorldList();
+    void loadWordList();
     QString generateMask() const;
 };
 

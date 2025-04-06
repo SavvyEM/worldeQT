@@ -22,12 +22,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QListWidget *recordList;
+    QWidget *recordsWidget;
 
 private slots:
     void onNewGameClicked();
     void onSubmitGuessClicked();
     void toggleRecordsView();
     void updateRecords();
+    void switchToGamePage();
+    void switchToRecordsPage();
 
 private:
     Ui::MainWindow *ui;
