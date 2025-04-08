@@ -110,7 +110,7 @@ void MainWindow::onSubmitGuessClicked(){
     if (result.isCorrect) {
         int score = gameLogic->calculateScore();
         totalScore += score;
-        gameLogic->saveScoreToFile(score); // Сохраняем текущий счёт, а не общий
+        gameLogic->saveScoreToFile(score);
 
         QMessageBox::StandardButton reply = QMessageBox::question(
             this,
@@ -219,5 +219,7 @@ void MainWindow::switchToRecordsPage(){
     ui->stackedWidget->setCurrentIndex(1);
     ui->menuRecordsButton->setChecked(true);
     ui->menuGameButton->setChecked(false);
+    ui->submitGuessButton->setEnabled(true);
+    ui->guessInput->setEnabled(true);
     ui->recordsWidget->setStyleSheet("background-color: black;");
 }
